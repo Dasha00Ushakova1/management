@@ -258,25 +258,34 @@
         </div>
       </div>
     </section>
+<section id="order" class="hidden">
+  <h2>Заказать и провести время</h2>
+  <p>Оставьте заявку на доставку цветов и десертов или забронируйте уютное место у нас.</p>
+  <form id="orderForm" onsubmit="handleOrder(event)" style="background: var(--pink-light); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    <label for="name">Ваше имя</label>
+    <input type="text" id="name" name="name" required style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
 
-    <section id="order" class="hidden">
-      <h2>Заказать и провести время</h2>
-      <p>Оставьте заявку на доставку цветов и десертов или забронируйте уютное место у нас.</p>
-      <form id="orderForm" onsubmit="handleOrder(event)">
-        <label for="name">Ваше имя</label>
-        <input type="text" id="name" name="name" required />
+    <label for="phone">Телефон</label>
+    <input type="tel" id="phone" name="phone" required pattern="\+?\d{7,15}" placeholder="+7xxxxxxxxxx" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
 
-        <label for="phone">Телефон</label>
-        <input type="tel" id="phone" name="phone" required pattern="\+?\d{7,15}" placeholder="+7xxxxxxxxxx" />
+    <label for="orderType">Что хотите заказать?</label>
+    <select id="orderType" name="orderType" required style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
+      <option value="">Выберите...</option>
+      <option value="flowers">Цветы</option>
+      <option value="desserts">Десерты</option>
+      <option value="visit">Посещение кофейни</option>
+      <option value="combo">Цветы + десерты</option>
+    </select>
 
-        <label for="orderType">Что хотите заказать?</label>
-        <select id="orderType" name="orderType" required>
-          <option value="">Выберите...</option>
-          <option value="flowers">Цветы</option>
-          <option value="desserts">Десерты</option>
-          <option value="visit">Посещение кофейни</option>
-          <option value="combo">Цветы + десерты</option>
-        </select>
+    <label for="details">Дополнительные пожелания</label>
+    <textarea id="details" name="details" placeholder="Например, дата и время, предпочтения..." style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;"></textarea>
+
+    <button type="submit" style="background: var(--pink-dark); border: none; padding: 0.8rem 1.2rem; border-radius: 6px; color: white; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: background-color 0.3s ease;">
+      Отправить заказ
+    </button>
+  </form>
+  <p id="orderMessage" style="color: var(--pink-dark); font-weight: 700; margin-top: 1rem;"></p>
+</section>
 
         <label for="details">Дополнительные пожелания</label>
         <textarea id="details" name="details" placeholder="Например, дата и время, предпочтения..."></textarea>
