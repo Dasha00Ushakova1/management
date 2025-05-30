@@ -189,17 +189,6 @@
         <button onclick="incrementSmile()" style="background: var(--pink-dark); border: none; padding: 0.6rem 1.2rem; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: background-color 0.3s;">
           Подарить улыбку 
         </button>
-        <script>
-  // Инициализация счётчика
-  let smiles = localStorage.getItem('smileCount') ? parseInt(localStorage.getItem('smileCount')) : 0;
-  document.getElementById('smileCount').textContent = smiles;
-
-  function incrementSmile() {
-    smiles++;
-    document.getElementById('smileCount').textContent = smiles;
-    localStorage.setItem('smileCount', smiles); // Сохраняем значение в localStorage
-  }
-</script>
       </div>
     </section>
   
