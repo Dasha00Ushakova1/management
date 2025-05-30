@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-   <link rel="icon" href="2e4b17e6-a650-4c03-99dc-bf0ad6f6be9b.png" sizes="32x32" type="image/x-icon">
-    <link href="logo1.png" rel="stylesheet">
+  <link rel="icon" href="2e4b17e6-a650-4c03-99dc-bf0ad6f6be9b.png" sizes="32x32" type="image/x-icon">
+  <link href="logo1.png" rel="stylesheet">
   <title>FloraSweets — Кондитерская & Цветочный салон</title>
   <style>
     :root {
@@ -13,6 +13,7 @@
       --gray-light: #a9b0c0;
       --blue-light: #7986a6;
       --blue-dark: #4e5f79;
+      --light-background: #f9f9f9; /* Новый цвет фона для формы заказа */
     }
     body {
       margin: 0;
@@ -56,7 +57,7 @@
       max-width: 1200px;
       margin: 2rem auto;
       padding: 0 1rem;
-      display: block; /* Show main content initially */
+      display: block;
     }
     section {
       background: white;
@@ -142,6 +143,22 @@
       padding: 1rem 2rem;
       font-size: 0.9rem;
     }
+    /* Адаптация под мобильные устройства */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 1rem;
+      }
+      main {
+        margin: 1rem;
+      }
+      .card img {
+        height: 120px; /* Уменьшение высоты изображения для мобильных устройств */
+      }
+    }
   </style>
 </head>
 <body>
@@ -152,47 +169,28 @@
       <a href="#" onclick="showSection('desserts')">Десерты</a>
       <a href="#" onclick="showSection('order')">Заказать</a>
       <a href="#" onclick="showSection('about')">О нас</a>
+      <a href="#" onclick="showSection('cart')">Корзина</a> <!-- Кнопка для корзины -->
     </nav>
   </header>
   <main id="mainContent">
-  <section id="about">
-  <h2>Добро пожаловать в FloraSweets!</h2>
-  <img src="main1.jpeg" alt="Милая композиция из цветов и десертов" style="max-width: 100%; border-radius: 12px; margin-bottom: 1rem;" />
-  <p>
-    Мы рады приветствовать вас в нашем кондитерском и цветочном салоне. Здесь вы найдете широкий ассортимент свежих цветов и вкусных десертов, которые сделают ваш день особенным. Наша команда профессионалов с любовью создает букеты и сладости, чтобы каждый момент был наполнен радостью и красотой.
-  </p>
-  <p>
-    Откройте для себя мир ароматов и вкусов, которые мы предлагаем. Мы уверены, что у нас есть что-то для каждого — будь то подарок для любимого человека или сладость для себя.
-  </p>
+    <section id="about">
+      <h2>Добро пожаловать в FloraSweets!</h2>
+      <img src="main1.jpeg" alt="Милая композиция из цветов и десертов" style="max-width: 80%; border-radius: 12px; margin-bottom: 1rem;" /> <!-- Уменьшена картинка -->
+      <p>
+        Мы рады приветствовать вас в нашем кондитерском и цветочном салоне. Здесь вы найдете широкий ассортимент свежих цветов и вкусных десертов, которые сделают ваш день особенным. Наша команда профессионалов с любовью создает букеты и сладости, чтобы каждый момент был наполнен радостью и красотой.
+      </p>
+      <p>
+        Откройте для себя мир ароматов и вкусов, которые мы предлагаем. Мы уверены, что у нас есть что-то для каждого — будь то подарок для любимого человека или сладость для себя.
+      </p>
+      <div id="smileFeature" style="background: var(--pink-light); color: white; padding: 1rem; border-radius: 12px; max-width: 320px; margin-top: 2rem; text-align: center; user-select: none;">
+        <h3>Сколько улыбок мы подарили?</h3>
+        <div id="smileCount" style="font-size: 2.5rem; font-weight: 700; margin: 1rem 0;">0</div>
+        <button onclick="incrementSmile()" style="background: var(--pink-dark); border: none; padding: 0.6rem 1.2rem; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: background-color 0.3s;">
+          Подарить улыбку 
+        </button>
+      </div>
+    </section>
 
-  <div id="smileFeature" style="background: var(--pink-light); color: white; padding: 1rem; border-radius: 12px; max-width: 320px; margin-top: 2rem; text-align: center; user-select: none;">
-    <h3>Сколько улыбок мы подарили?</h3>
-    <div id="smileCount" style="font-size: 2.5rem; font-weight: 700; margin: 1rem 0;">0</div>
-    <button onclick="incrementSmile()" style="background: var(--pink-dark); border: none; padding: 0.6rem 1.2rem; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: background-color 0.3s;">
-      Подарить улыбку 
-    </button>
-  </div>
-</section>
-
-<script>
-  // Инициализация счётчика
-  let smiles = localStorage.getItem('smileCount') ? parseInt(localStorage.getItem('smileCount')) : 0;
-  document.getElementById('smileCount').textContent = smiles;
-
-  function incrementSmile() {
-    smiles++;
-    document.getElementById('smileCount').textContent = smiles;
-    localStorage.setItem('smileCount', smiles); // Сохраняем значение в localStorage
-  }
-</script>
-
-<script>
-  let smiles = 0;
-  function incrementSmile() {
-    smiles++;
-    document.getElementById('smileCount').textContent = smiles;
-  }
-</script>
     <section id="flowers" class="hidden">
       <h2>Цветы для души</h2>
       <p>У нас вы можете выбрать свежие букеты и композиции, чтобы порадовать себя или близких.</p>
@@ -260,55 +258,71 @@
         </div>
       </div>
     </section>
-<section id="order" class="hidden">
-  <h2>Заказать и провести время</h2>
-  <p>Оставьте заявку на доставку цветов и десертов или забронируйте уютное место у нас.</p>
-  <form id="orderForm" onsubmit="handleOrder(event)" style="background: var(--pink-light); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-    
-    <label for="name">Ваше имя</label>
-    <input type="text" id="name" name="name" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
 
-    <label for="phone">Телефон</label>
-    <input type="tel" id="phone" name="phone" required pattern="\+?\d{7,15}" placeholder="+7xxxxxxxxxx" aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
+    <section id="order" class="hidden">
+      <h2>Заказать и провести время</h2>
+      <p>Оставьте заявку на доставку цветов и десертов или забронируйте уютное место у нас.</p>
+      <form id="orderForm" onsubmit="handleOrder(event)" style="background: var(--light-background); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"> <!-- Изменён цвет фона -->
+        
+        <label for="name">Ваше имя</label>
+        <input type="text" id="name" name="name" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
 
-    <label for="orderType">Что хотите заказать?</label>
-    <select id="orderType" name="orderType" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
-      <option value="" disabled selected>Выберите...</option>
-      <option value="flowers">Цветы</option>
-      <option value="desserts">Десерты</option>
-      <option value="visit">Посещение кофейни</option>
-      <option value="combo">Цветы + десерты</option>
-    </select>
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" name="phone" required pattern="\+?\d{7,15}" placeholder="+7xxxxxxxxxx" aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
 
-    <label for="details">Дополнительные пожелания</label>
-    <textarea id="details" name="details" placeholder="Например, дата и время, предпочтения..." style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;"></textarea>
+        <label for="orderType">Что хотите заказать?</label>
+        <select id="orderType" name="orderType" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
+          <option value="" disabled selected>Выберите...</option>
+          <option value="flowers">Цветы</option>
+          <option value="desserts">Десерты</option>
+          <option value="visit">Посещение кофейни</option>
+          <option value="combo">Цветы + десерты</option>
+        </select>
 
-    <button type="submit" style="background: var(--pink-dark); border: none; padding: 0.8rem 1.2rem; border-radius: 6px; color: white; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: background-color 0.3s ease;">
-      Отправить заказ
-    </button>
-  </form>
-  <p id="orderMessage" style="color: var(--pink-dark); font-weight: 700; margin-top: 1rem;"></p>
-</section>
+        <label for="details">Дополнительные пожелания</label>
+        <textarea id="details" name="details" placeholder="Например, дата и время, предпочтения..." style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;"></textarea>
+
+        <button type="submit" style="background: var(--pink-dark); border: none; padding: 0.8rem 1.2rem; border-radius: 6px; color: white; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: background-color 0.3s ease;">
+          Отправить заказ
+        </button>
+      </form>
+      <p id="orderMessage" style="color: var(--pink-dark); font-weight: 700; margin-top: 1rem;"></p>
+    </section>
+
+    <section id="cart" class="hidden">
+      <h2>Корзина</h2>
+      <img src="cart-icon.png" alt="Корзина" style="width: 50px; height: 50px; margin-bottom: 1rem;">
+      <ul id="cartItems" style="list-style: none; padding: 0;"></ul>
+      <button onclick="clearCart()" style="background: var(--pink-dark); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Очистить корзину</button>
+    </section>
   </main>
   <footer>
     &copy; 2025 FloraSweets — Кондитерская & Цветочный салон — Ушакова & Тимощенкова
   </footer>
 
   <script>
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('main > section');
-      sections.forEach(section => {
-        section.style.display = 'none'; // Hide all sections
-      });
-      document.getElementById(sectionId).style.display = 'block'; // Show the selected section
-      document.getElementById('mainContent').style.display = 'block'; // Show main content
-    }
-
     const cart = [];
 
     function addToCart(name, price) {
       cart.push({name, price});
       alert(`Добавлено в корзину: ${name} — ${price} ₽`);
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cartItems');
+      cartItems.innerHTML = ''; // Очистить текущий список
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} — ${item.price} ₽`;
+        cartItems.appendChild(li);
+      });
+    }
+
+    function clearCart() {
+      cart.length = 0; // Очистить корзину
+      updateCartDisplay();
+      alert('Корзина очищена.');
     }
 
     function handleOrder(event) {
@@ -334,8 +348,17 @@
       form.reset();
     }
 
-    // Show the about section by default
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('main > section');
+      sections.forEach(section => {
+        section.style.display = 'none'; // Скрыть все секции
+      });
+      document.getElementById(sectionId).style.display = 'block'; // Показать выбранную секцию
+      document.getElementById('mainContent').style.display = 'block'; // Показать основной контент
+    }
+
+    // Показать секцию "О нас" по умолчанию
     showSection('about');
   </script>
 </body>
-</html> 
+</html>
