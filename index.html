@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FloraSweets — Кондитерская & Цветочный салон</title>
+  <style>
+    :root {
+      --pink-light: #c5799d;
+      --pink-dark: #996b8f;
+      --gray-light: #a9b0c0;
+      --blue-light: #7986a6;
+      --blue-dark: #4e5f79;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--gray-light);
+      color: var(--blue-dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: var(--pink-dark);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: var(--pink-light);
+    }
+    main {
+      flex-grow: 1;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    section {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+      color: var(--pink-dark);
+      border-bottom: 3px solid var(--pink-light);
+      padding-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    /* Карточки товаров */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .card {
+      border: 1px solid var(--blue-light);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-content h3 {
+      margin: 0 0 0.5rem 0;
+      color: var(--blue-dark);
+    }
+    .card-content p {
+      flex-grow: 1;
+      font-size: 0.9rem;
+      color: var(--blue-light);
+      margin-bottom: 1rem;
+    }
+    .price {
+      font-weight: 700;
+      color: var(--pink-dark);
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+    button.buy-btn {
+      background: var(--pink-light);
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background-color 0.3s ease;
+    }
+    button.buy-btn:hover {
+      background: var(--pink-dark);
+    }
+    /* Форма заказа */
+    form {
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+      color: var(--blue-dark);
+    }
+    input, select, textarea {
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--blue-light);
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+    }
+    textarea {
+      min-height: 80px;
+    }
+    button[type="submit"] {
+      background: var(--pink-light);
+      border: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover {
+      background: var(--pink-dark);
+    }
+    /* Интерактивная функция: Таймер "Сладкий час" */
+    .sweet-hour {
+      background: var(--blue-light);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      user-select: none;
+    }
+    footer {
+      background: var(--blue-dark);
+      color: white;
+      text-align: center;
+      padding: 1rem 2rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FloraSweets</h1>
+    <nav>
+      <a href="#flowers">Цветы</a>
+      <a href="#desserts">Десерты</a>
+      <a href="#order">Заказать</a>
+      <a href="#about">О нас</a>
+    </nav>
+  </header>
+  <main>
+    <div class="sweet-hour" id="sweetHour">
+      Сладкий час! Скидка 15% на все десерты через: <span id="timer">00:00:00</span>
+    </div>
+
+    <section id="flowers">
+      <h2>Цветы для души</h2>
+      <p>У нас вы можете выбрать свежие букеты и композиции, чтобы порадовать себя или близких.</p>
+      <div class="grid">
+        <div class="card" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Букет роз" />
+          <div class="card-content">
+            <h3>Розовый букет</h3>
+            <p>Нежные розы в пастельных тонах для романтического настроения.</p>
+            <span class="price">1500 ₽</span>
+            <button class="buy-btn" onclick="addToCart('Розовый букет', 1500)">Купить</button>
+          </div>
+        </div>
+        <div class="card" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1517959105824-7d8e0c9d9e2d?auto=format&fit=crop&w=400&q=80" alt="Лавандовый букет" />
+          <div class="card-content">
+            <h3>Лавандовый букет</h3>
+            <p>Свежая лаванда с ароматом спокойствия и уюта.</p>
+            <span class="price">1200 ₽</span>
+            <button class="buy-btn" onclick="addToCart('Лавандовый букет', 1200)">Купить</button>
+          </div>
+        </div>
+        <div class="card" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=400&q=80" alt="Композиция из полевых цветов" />
+          <div class="card-content">
+            <h3>Полевые цветы</h3>
+            <p>Свежая и яркая композиция для создания настроения лета.</p>
+            <span class="price">900 ₽</span>
+            <button class="buy-btn" onclick="addToCart('Полевые цветы', 900)">Купить</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="desserts">
+      <h2>Вкусные десерты</h2>
+      <p>Наши кондитеры приготовят для вас изысканные сладости из натуральных ингредиентов.</p>
+      <div class="grid">
+        <div class="card" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1562440499-8f7a9b6c7a48?auto=format&fit=crop&w=400&q=80" alt="Торт с ягодами" />
+          <div class="card-content">
+            <h3>Ягодный торт</h3>
+            <p>Свежие ягоды и нежный крем — идеальный десерт для любого праздника.</p>
+            <span class="price">650 ₽</span>
+            <button class="buy-btn" onclick="addToCart('Ягодный торт', 650)">Купить</button>
+          </div>
+        </div>
+        <div class="card" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" alt="Макаронс" />
+          <div class="card-content">
+            <h3>Макаронс</h3>
+            <p>Миниатюрные французские пирожные в разнообразных вкусах.</p>
+            <span class="price">350 ₽</span>
+            <button class="buy-btn" onclick="addToCart('Макаронс', 350)">Купить</button>
+          </div>
+        </div>
+        <div class="card" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=400&q=80" alt="Чизкейк" />
+          <div class="card-content">
+            <h3>Чизкейк</h3>
+            <p>Классический чизкейк с хрустящей основой и творожным кремом.</p>
+            <span class="price">550 ₽</span>
+            <button class="buy-btn" onclick="addToCart('Чизкейк', 550)">Купить</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="order">
+      <h2>Заказать и провести время</h2>
+      <p>Оставьте заявку на доставку цветов и десертов или забронируйте уютное место у нас.</p>
+      <form id="orderForm" onsubmit="handleOrder(event)">
+        <label for="name">Ваше имя</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" name="phone" required pattern="\+?\d{7,15}" placeholder="+7xxxxxxxxxx" />
+
+        <label for="orderType">Что хотите заказать?</label>
+        <select id="orderType" name="orderType" required>
+          <option value="">Выберите...</option>
+          <option value="flowers">Цветы</option>
+          <option value="desserts">Десерты</option>
+          <option value="visit">Посещение кофейни</option>
+          <option value="combo">Цветы + десерты</option>
+        </select>
+
+        <label for="details">Дополнительные пожелания</label>
+        <textarea id="details" name="details" placeholder="Например, дата и время, предпочтения..."></textarea>
+
+        <button type="submit">Отправить заказ</button>
+      </form>
+      <p id="orderMessage" style="color: var(--pink-dark); font-weight: 700; margin-top: 1rem;"></p>
+    </section>
+
+    <section id="about">
+      <h2>О нас</h2>
+      <p>
+        FloraSweets — это уникальное место, где цветы и сладости создают атмосферу уюта и радости. У нас вы можете не только купить свежие букеты и вкусные десерты, но и приятно провести время с друзьями или семьей в нашем уютном кафе.
+      </p>
+      <p>
+        Мы заботимся о качестве и атмосфере, чтобы каждый визит дарил вам вдохновение и счастье.
+      </p>
+    </section>
+  </main>
+  <footer>
+    &copy; 2024 FloraSweets — Кондитерская & Цветочный салон
+  </footer>
+
+  <script>
+    // Таймер "Сладкий час" — обратный отсчет до следующего часа с 15% скидкой на десерты
+    function startSweetHourTimer() {
+      const timerEl = document.getElementById('timer');
+
+      function updateTimer() {
+        const now = new Date();
+        // Сладкий час — каждый день с 15:00 до 16:00
+        const sweetHourStart = new Date(now);
+        sweetHourStart.setHours(15, 0, 0, 0);
+        const sweetHourEnd = new Date(now);
+        sweetHourEnd.setHours(16, 0, 0, 0);
+
+        let diff;
+        let message;
+
+        if (now >= sweetHourStart && now < sweetHourEnd) {
+          // Во время сладкого часа показываем время до конца акции
+          diff = sweetHourEnd - now;
+          message = "До конца сладкого часа осталось: ";
+        } else {
+          // Иначе показываем время до начала следующего сладкого часа
+          if (now < sweetHourStart) {
+            diff = sweetHourStart - now;
+            message = "Сладкий час начнется через: ";
+          } else {
+            // После 16:00 — следующий сладкий час завтра
+            sweetHourStart.setDate(sweetHourStart.getDate() + 1);
+            diff = sweetHourStart - now;
+            message = "Сладкий час начнется через: ";
+          }
+        }
+
+        let h = Math.floor(diff / 1000 / 60 / 60);
+        let m = Math.floor((diff / 1000 / 60) % 60);
+        let s = Math.floor((diff / 1000) % 60);
+
+        h = h.toString().padStart(2, '0');
+        m = m.toString().padStart(2, '0');
+        s = s.toString().padStart(2, '0');
+
+        timerEl.textContent = h + ":" + m + ":" + s;
+        document.getElementById('sweetHour').firstChild.textContent = message;
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    }
+    startSweetHourTimer();
+
+    // Корзина (простая реализация)
+    const cart = [];
+
+    function addToCart(name, price) {
+      cart.push({name, price});
+      alert(`Добавлено в корзину: ${name} — ${price} ₽`);
+    }
+
+    // Обработка формы заказа
+    function handleOrder(event) {
+      event.preventDefault();
+      const form = event.target;
+      const name = form.name.value.trim();
+      const phone = form.phone.value.trim();
+      const orderType = form.orderType.value;
+      const details = form.details.value.trim();
+
+      if (!name || !phone || !orderType) {
+        alert('Пожалуйста, заполните все обязательные поля.');
+        return;
+      }
+
+      // Здесь можно добавить отправку данных на сервер или обработку
+      const orderMessage = `
+        Спасибо, ${name}! Ваш заказ принят.
+        Тип заказа: ${orderType}.
+        Дополнительно: ${details || 'нет'}.
+        Мы свяжемся с вами по телефону: ${phone}.
+      `;
+      document.getElementById('orderMessage').textContent = orderMessage;
+      form.reset();
+    }
+  </script>
+</body>
+</html>
