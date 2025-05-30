@@ -157,7 +157,9 @@
       }
       .card img {
         height: 120px; /* Уменьшение высоты изображения для мобильных устройств */
-      .notification {
+      }
+    }
+    .notification {
       position: fixed;
       top: 20px;
       right: 20px;
@@ -172,7 +174,6 @@
     }
     .notification.show {
       opacity: 1;  
-      }
     }
   </style>
 </head>
@@ -190,7 +191,7 @@
   <main id="mainContent">
     <section id="about">
       <h2>Цветы и десерты для вашего настроения</h2>
-      <img src="main1.jpeg" alt="Милая композиция из цветов и десертов" style="max-width: 80%; border-radius: 12px; margin-bottom: 1rem;" /> <!-- Уменьшена картинка -->
+      <img src="main1.jpeg" alt="Милая композиция из цветов и десертов" style="max-width: 80%; border-radius: 12px; margin-bottom: 1rem;" />
       <p>
         Мы рады приветствовать вас в нашем кондитерском и цветочном салоне. Здесь вы найдете широкий ассортимент свежих цветов и вкусных десертов, которые сделают ваш день особенным. Наша команда профессионалов с любовью создает букеты и сладости, чтобы каждый момент был наполнен радостью и красотой.
       </p>
@@ -205,17 +206,6 @@
         </button>
       </div>
     </section>
-    <script>
-  // Инициализация счётчика
-  let smiles = localStorage.getItem('smileCount') ? parseInt(localStorage.getItem('smileCount')) : 0;
-  document.getElementById('smileCount').textContent = smiles;
-
-  function incrementSmile() {
-    smiles++;
-    document.getElementById('smileCount').textContent = smiles;
-    localStorage.setItem('smileCount', smiles); // Сохраняем значение в localStorage
-  }
-</script>
 
     <section id="flowers" class="hidden">
       <h2>Цветы — это улыбки природы, которые радуют наши сердца</h2>
@@ -233,10 +223,10 @@
         <div class="card" tabindex="0">
           <img src="frl2.jpeg" alt="Лавандовый букет" />
           <div class="card-content">
-            <h3>Лавандовый букет</h3>
+            <h3>Лавандый букет</h3>
             <p>Свежая лаванда с ароматом спокойствия и уюта.</p>
             <span class="price">1200 ₽</span>
-            <button class="buy-btn" onclick="addToCart('Лавандовый букет', 1200)">Купить</button>
+            <button class="buy-btn" onclick="addToCart('Лавандый букет', 1200)">Купить</button>
           </div>
         </div>
         <div class="card" tabindex="0">
@@ -288,7 +278,7 @@
     <section id="order" class="hidden">
       <h2>Заказать и провести время</h2>
       <p>Оставьте заявку на доставку цветов и десертов или забронируйте уютное место у нас.</p>
-      <form id="orderForm" onsubmit="handleOrder(event)" style="background: var(--light-background); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"> <!-- Изменён цвет фона -->
+      <form id="orderForm" onsubmit="handleOrder(event)" style="background: var(--light-background); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
         
         <label for="name">Ваше имя</label>
         <input type="text" id="name" name="name" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
@@ -316,138 +306,18 @@
     </section>
 
     <section id="cart" class="hidden">
-  <h2>Забронируйте букет или десерт прямо сейчас</h2>
-  <img src="images (2)-Photoroom (1).png" alt="Корзина" style="width: 50px; height: 50px; margin-bottom: 1rem;">
-  <ul id="cartItems" style="list-style: none; padding: 0;"></ul>
-  <button onclick="clearCart()" style="background: var(--pink-dark); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Очистить корзину</button>
-  <button onclick="placeOrder()" style="background: var(--green); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Заказать</button>
-</section>
+      <h2>Забронируйте букет или десерт прямо сейчас</h2>
+      <img src="images (2)-Photoroom (1).png" alt="Корзина" style="width: 50px; height: 50px; margin-bottom: 1rem;">
+      <ul id="cartItems" style="list-style: none; padding: 0;"></ul>
+      <button onclick="clearCart()" style="background: var(--pink-dark); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Очистить корзину</button>
+      <button onclick="placeOrder()" style="background: var(--pink-dark); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Заказать</button>
+    </section>
 
-<script>
-  function addToCart() {
-    const productName = document.getElementById('productName').value;
-    const productImage = document.getElementById('productImage').value;
-    const cartItems = document.getElementById('cartItems');
-
-    if (productName && productImage) {
-      const li = document.createElement('li');
-      li.style.marginBottom = '1rem';
-      li.innerHTML = `<img src="${productImage}" alt="${productName}" style="width: 30px; height: 30px; margin-right: 0.5rem;"> ${productName}`;
-      cartItems.appendChild(li);
-
-      // Очистить поля ввода
-      document.getElementById('productName').value = '';
-      document.getElementById('productImage').value = '';
-    } else {
-      alert('Пожалуйста, заполните все поля.');
-    }
-  }
-
-  function clearCart() {
-    document.getElementById('cartItems').innerHTML = '';
-  }
-
-  function placeOrder() {
-    const cartItems = document.getElementById('cartItems').children;
-    if (cartItems.length > 0) {
-      alert('Ваш заказ оформлен!');
-      clearCart();
-    } else {
-      alert('Корзина пуста. Добавьте товары перед оформлением заказа.');
-    }
-  }
-</script>
+    <div id="notification" class="notification"></div>
   </main>
   <footer>
     &copy; 2025 FloraSweets — Кондитерская & Цветочный салон — Ушакова & Тимощенкова
   </footer>
-   <div id="notification" class="notification"></div>
-
-  <script>
-    const cart = [];
-
-    function addToCart(name, price) {
-      cart.push({name, price});
-      showNotification(`Добавлено в корзину: ${name} — ${price} ₽`);
-      updateCartDisplay();
-    }
-
-    function showNotification(message) {
-      const notification = document.getElementById('notification');
-      notification.textContent = message;
-      notification.classList.add('show');
-      setTimeout(() => {
-        notification.classList.remove('show');
-      }, 3000); // Уведомление исчезает через 3 секунды
-    }
-
-    function updateCartDisplay() {
-      const cartItems = document.getElementById('cartItems');
-      cartItems.innerHTML = '';
-      cart.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} — ${item.price} ₽`;
-        cartItems.appendChild(li);
-      });
-    }
-
-  <script>
-    const cart = [];
-
-    function addToCart(name, price) {
-      cart.push({name, price});
-      alert(`Добавлено в корзину: ${name} — ${price} ₽`);
-      updateCartDisplay();
-    }
-
-    function updateCartDisplay() {
-      const cartItems = document.getElementById('cartItems');
-      cartItems.innerHTML = ''; // Очистить текущий список
-      cart.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} — ${item.price} ₽`;
-        cartItems.appendChild(li);
-      });
-    }
-
-    function clearCart() {
-      cart.length = 0; // Очистить корзину
-      updateCartDisplay();
-      alert('Корзина очищена.');
-    }
-
-    function handleOrder(event) {
-      event.preventDefault();
-      const form = event.target;
-      const name = form.name.value.trim();
-      const phone = form.phone.value.trim();
-      const orderType = form.orderType.value;
-      const details = form.details.value.trim();
-
-      if (!name || !phone || !orderType) {
-        alert('Пожалуйста, заполните все обязательные поля.');
-        return;
-      }
-
-      const orderMessage = `
-        Спасибо, ${name}! Ваш заказ принят.
-        Тип заказа: ${orderType}.
-        Дополнительно: ${details || 'нет'}.
-        Мы свяжемся с вами по телефону: ${phone}.
-      `;
-      document.getElementById('orderMessage').textContent = orderMessage;
-      form.reset();
-    }
-
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('main > section');
-      sections.forEach(section => {
-        section.style.display = 'none'; // Скрыть все секции
-      });
-      document.getElementById(sectionId).style.display = 'block'; // Показать выбранную секцию
-      document.getElementById('mainContent').style.display = 'block'; // Показать основной контент
-    }
-    <div id="notification" class="notification"></div>
 
   <script>
     const cart = [];
@@ -507,16 +377,46 @@
       showNotification('Ваш заказ принят!');
     }
 
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('main > section');
-      sections.forEach(section => {
-        section.style.display = 'none';
-      });
-      document.getElementById(sectionId).style.display = 'block';
-      document.getElementById('mainContent').style.display = 'block';
-    }
-    // Показать секцию "О нас" по умолчанию
+    function incrementSmile() {
+      let smiles = localStorage.getItem('smileCount') ? parseInt(localStorage.getItem('smileCount')) : 0;
+      smiles++;
+      document.getElementById('smileCount').textContent = smiles;
+      localStorage.setItem('smileCount', smiles);
+<script>
+  // Отобразить сохранённое количество улыбок при загрузке
+  document.addEventListener('DOMContentLoaded', () => {
+    const smiles = localStorage.getItem('smileCount') ? parseInt(localStorage.getItem('smileCount')) : 0;
+    document.getElementById('smileCount').textContent = smiles;
     showSection('about');
-  </script>
-</body>
-</html>
+  });
+
+  function incrementSmile() {
+    let smiles = localStorage.getItem('smileCount') ? parseInt(localStorage.getItem('smileCount')) : 0;
+    smiles++;
+    document.getElementById('smileCount').textContent = smiles;
+    localStorage.setItem('smileCount', smiles);
+  }
+
+  function showSection(sectionId) {
+    const sections = document.querySelectorAll('main > section');
+    sections.forEach(section => {
+      section.classList.add('hidden');
+    });
+    const target = document.getElementById(sectionId);
+    if (target) {
+      target.classList.remove('hidden');
+    }
+    // Можно скрыть основной контент, если нужно, но здесь показываем всегда
+    document.getElementById('mainContent').style.display = 'block';
+  }
+
+  function placeOrder() {
+    if (cart.length === 0) {
+      showNotification('Корзина пуста. Добавьте товары перед заказом.');
+      return;
+    }
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+    showNotification(`Спасибо за заказ! Всего товаров: ${cart.length}, сумма: ${total} ₽`);
+    clearCart();
+  }
+</script>
