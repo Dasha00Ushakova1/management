@@ -182,25 +182,7 @@
       <p>
         Откройте для себя мир ароматов и вкусов, которые мы предлагаем. Мы уверены, что у нас есть что-то для каждого — будь то подарок для любимого человека или сладость для себя.
       </p>
-      <div id="smileFeature" style="background: var(--pink-light); color: white; padding: 1rem; border-radius: 12px; max-width: 320px; margin-top: 2rem; text-align: center; user-select: none;">
-        <h3>Сколько улыбок мы подарили?</h3>
-        <div id="smileCount" style="font-size: 2.5rem; font-weight: 700; margin: 1rem 0;">0</div>
-        <button onclick="incrementSmile()" style="background: var(--pink-dark); border: none; padding: 0.6rem 1.2rem; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: background-color 0.3s;">
-          Подарить улыбку 
-        </button>
-      </div>
     </section>
-    <script>
-  // Инициализация счётчика
-  let smiles = localStorage.getItem('smileCount') ? parseInt(localStorage.getItem('smileCount')) : 0;
-  document.getElementById('smileCount').textContent = smiles;
-
-  function incrementSmile() {
-    smiles++;
-    document.getElementById('smileCount').textContent = smiles;
-    localStorage.setItem('smileCount', smiles); // Сохраняем значение в localStorage
-  }
-</script>
 
     <section id="flowers" class="hidden">
       <h2>Цветы — это улыбки природы, которые радуют наши сердца</h2>
@@ -273,7 +255,7 @@
     <section id="order" class="hidden">
       <h2>Заказать и провести время</h2>
       <p>Оставьте заявку на доставку цветов и десертов или забронируйте уютное место у нас.</p>
-      <form id="orderForm" onsubmit="handleOrder(event)" style="background: var(--light-background); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"> <!-- Изменён цвет фона -->
+      <form id="orderForm" onsubmit="handleOrder(event)" style="background: var(--light-background); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
         
         <label for="name">Ваше имя</label>
         <input type="text" id="name" name="name" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
@@ -285,7 +267,7 @@
         <select id="orderType" name="orderType" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
           <option value="" disabled selected>Выберите...</option>
           <option value="Бронь цветов">Цветы</option>
-          <option value="Бронь десертовесерты">Десерты</option>
+          <option value="Бронь десертов">Десерты</option>
           <option value="Визит">Посещение кофейни</option>
           <option value="Комбо">Цветы + десерты</option>
         </select>
@@ -298,6 +280,8 @@
         </button>
       </form>
       <p id="orderMessage" style="color: var(--pink-dark); font-weight: 700; margin-top: 1rem;"></p>
+      <h3>Ваши товары:</h3>
+      <ul id="orderItems" style="list-style: none; padding: 0;"></ul>
     </section>
 
     <section id="cart" class="hidden">
@@ -318,6 +302,7 @@
       cart.push({name, price});
       alert(`Добавлено в корзину: ${name} — ${price} ₽`);
       updateCartDisplay();
+      updateOrderDisplay(); // Обновляем отображение товаров в разделе "Заказать"
     }
 
     function updateCartDisplay() {
@@ -330,9 +315,20 @@
       });
     }
 
+    function updateOrderDisplay() {
+      const orderItems = document.getElementById('orderItems');
+      orderItems.innerHTML = ''; // Очистить текущий список
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} — ${item.price} ₽`;
+        orderItems.appendChild(li);
+      });
+    }
+
     function clearCart() {
       cart.length = 0; // Очистить корзину
       updateCartDisplay();
+      updateOrderDisplay(); // Обновляем отображение товаров в разделе "Заказать"
       alert('Корзина очищена.');
     }
 
@@ -356,7 +352,34 @@
         Мы свяжемся с вами по телефону: ${phone}.
       `;
       document.getElementById('orderMessage').textContent = orderMessage;
+
+      // Удаляем товары из корзины после оформления заказа
+      cart.length = 0;
+      updateCartDisplay();
+      updateOrderDisplay(); // Обновляем отображение товаров в разделе "Заказать"
+
+      // Показать уведомление
+      showOrderNotification();
       form.reset();
+    }
+
+    function showOrderNotification() {
+      const notification = document.createElement('div');
+      notification.textContent = 'Ваш заказ принят! Мы свяжемся с вами.';
+      notification.style.background = 'var(--pink-dark)';
+      notification.style.color = 'white';
+      notification.style.padding = '1rem';
+      notification.style.borderRadius = '8px';
+      notification.style.position = 'fixed';
+      notification.style.top = '20px';
+      notification.style.right = '20px';
+      notification.style.zIndex = '100';
+      notification.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.remove();
+      }, 3000); // Удалить уведомление через 3 секунды
     }
 
     function showSection(sectionId) {
@@ -365,55 +388,8 @@
         section.style.display = 'none'; // Скрыть все секции
       });
       document.getElementById(sectionId).style.display = 'block'; // Показать выбранную секцию
-      document.getElementById('mainContent').style.display = 'block'; // Показать основной контент
-    }
-    function showOrderNotification() {
-  const notification = document.createElement('div');
-  notification.textContent = 'Ваш заказ принят! Мы свяжемся с вами.';
-  notification.style.background = 'var(--pink-dark)';
-  notification.style.color = 'white';
-  notification.style.padding = '1rem';
-  notification.style.borderRadius = '8px';
-  notification.style.position = 'fixed';
-  notification.style.top = '20px';
-  notification.style.right = '20px';
-  notification.style.zIndex = '100';
-  notification.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
-  document.body.appendChild(notification);
-
-  setTimeout(() => {
-    notification.remove();
-  }, 3000); // Удалить уведомление через 3 секунды
-}
-
-// Измените функцию handleOrder, чтобы вызывать showOrderNotification
-function handleOrder(event) {
-  event.preventDefault();
-  const form = event.target;
-  const name = form.name.value.trim();
-  const phone = form.phone.value.trim();
-  const orderType = form.orderType.value;
-  const details = form.details.value.trim();
-
-  if (!name || !phone || !orderType) {
-    alert('Пожалуйста, заполните все обязательные поля.');
-    return;
   }
-
-  const orderMessage = `
-    Спасибо, ${name}! Ваш заказ принят.
-    Тип заказа: ${orderType}.
-    Дополнительно: ${details || 'нет'}.
-    Мы свяжемся с вами по телефону: ${phone}.
-  `;
-  document.getElementById('orderMessage').textContent = orderMessage;
-  form.reset();
-  
-  // Показать уведомление
-  showOrderNotification();
-}
-
-    // Показать секцию "О нас" по умолчанию
+    // Инициализация: показываем раздел "О нас" по умолчанию
     showSection('about');
   </script>
 </body>
