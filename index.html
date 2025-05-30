@@ -14,6 +14,8 @@
       --blue-light: #7986a6;
       --blue-dark: #4e5f79;
       --light-background: #f9f9f9; /* Новый цвет фона для формы заказа */
+      flex-direction: column;
+      min-height: 100vh;
     }
     body {
       margin: 0;
@@ -275,37 +277,38 @@
       </div>
     </section>
 
-    <section id="order" class="hidden">
-      <h2>Заказать и провести время</h2>
-      <p>Оставьте заявку на доставку цветов и десертов или забронируйте уютное место у нас.</p>
-      <form id="orderForm" onsubmit="handleOrder(event)" style="background: var(--light-background); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-        
-        <label for="name">Ваше имя</label>
-        <input type="text" id="name" name="name" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
+     <section id="order" class="hidden">
+    <h2>Заказать и провести время</h2>
+    <p>Оставьте заявку на доставку цветов и десертов или забронируйте уютное место у нас.</p>
+    <form id="orderForm" onsubmit="handleOrder(event)" style="background: var(--light-background); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+      <label for="name">Ваше имя</label>
+      <input type="text" id="name" name="name" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
 
-        <label for="phone">Телефон</label>
-        <input type="tel" id="phone" name="phone" required pattern="\+?\d{7,15}" placeholder="+7xxxxxxxxxx" aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
+      <label for="phone">Телефон</label>
+      <input type="tel" id="phone" name="phone" required pattern="\+?\d{7,15}" placeholder="+7xxxxxxxxxx" aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
 
-        <label for="orderType">Что хотите заказать?</label>
-        <select id="orderType" name="orderType" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
-          <option value="" disabled selected>Выберите...</option>
-          <option value="Бронь цветов">Цветы</option>
-          <option value="Бронь десертов">Десерты</option>
-          <option value="Визит">Посещение кофейни</option>
-          <option value="Комбо">Цветы + десерты</option>
-        </select>
+      <label for="orderType">Что хотите заказать?</label>
+      <select id="orderType" name="orderType" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
+        <option value="" disabled selected>Выберите...</option>
+        <option value="Бронь цветов">Цветы</option>
+        <option value="Бронь десертов">Десерты</option>
+        <option value="Визит">Посещение кофейни</option>
+        <option value="Комбо">Цветы + десерты</option>
+      </select>
 
-        <label for="details">Дополнительные пожелания</label>
-        <textarea id="details" name="details" placeholder="Например, дата и время, предпочтения..." style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;"></textarea>
+      <label for="details">Дополнительные пожелания</label>
+      <textarea id="details" name="details" placeholder="Например, дата и время, предпочтения..." style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;"></textarea>
 
-        <button type="submit" style="background: var(--pink-dark); border: none; padding: 0.8rem 1.2rem; border-radius: 6px; color: white; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: background-color 0.3s ease;">
-          Отправить заказ
-        </button>
-      </form>
-      <p id="orderMessage" style="color: var(--pink-dark); font-weight: 700; margin-top: 1rem;"></p>
-      <h3>В заказе: </h3>
-      <ul id="orderItems" style="list-style: none; padding: 0;"></ul>
-    </section>
+      <!-- Скрыть кнопку или переместить её выше -->
+      <button type="submit" style="background: var(--pink-dark); border: none; padding: 0.8rem 1.2rem; border-radius: 6px; color: white; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: background-color 0.3s ease; display: none;"> <!-- Скрыто -->
+        Отправить заказ
+      </button>
+    </form>
+    <p id="orderMessage" style="color: #4e5f79; font-weight: 700; margin-top: 1rem;"></p> <!-- Изменён цвет текста -->
+    <h3>В заказе: </h3>
+    <ul id="orderItems" style="list-style: none; padding: 0;"></ul>
+  </section>
+  <script>
 
     <section id="cart" class="hidden">
       <h2>Не откладывай желаемое на будущее - радуй себя сейчас</h2>
@@ -386,7 +389,7 @@
       form.reset();
     }
 
-    function showOrderNotification() {
+  function showOrderNotification() {
       const notification = document.createElement('div');
       notification.textContent = 'Ваш заказ принят! Мы свяжемся с вами.';
       notification.style.background = 'var(--pink-dark)';
@@ -404,7 +407,6 @@
         notification.remove();
       }, 3000); // Удалить уведомление через 3 секунды
     }
-
     function showSection(sectionId) {
       const sections = document.querySelectorAll('main > section');
       sections.forEach(section => {
