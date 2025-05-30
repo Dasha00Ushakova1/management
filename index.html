@@ -54,7 +54,7 @@
       max-width: 1200px;
       margin: 2rem auto;
       padding: 0 1rem;
-      display: none; /* Hide main content initially */
+      display: block; /* Show main content initially */
     }
     section {
       background: white;
@@ -153,6 +153,16 @@
     </nav>
   </header>
   <main id="mainContent">
+    <section id="about">
+      <h2>Добро пожаловать в FloraSweets!</h2>
+      <p>
+        Мы рады приветствовать вас в нашем кондитерском и цветочном салоне. Здесь вы найдете широкий ассортимент свежих цветов и вкусных десертов, которые сделают ваш день особенным. Наша команда профессионалов с любовью создает букеты и сладости, чтобы каждый момент был наполнен радостью и красотой.
+      </p>
+      <p>
+        Откройте для себя мир ароматов и вкусов, которые мы предлагаем. Мы уверены, что у нас есть что-то для каждого — будь то подарок для любимого человека или сладость для себя.
+      </p>
+    </section>
+
     <section id="flowers" class="hidden">
       <h2>Цветы для души</h2>
       <p>У нас вы можете выбрать свежие букеты и композиции, чтобы порадовать себя или близких.</p>
@@ -247,16 +257,6 @@
       </form>
       <p id="orderMessage" style="color: var(--pink-dark); font-weight: 700; margin-top: 1rem;"></p>
     </section>
-
-    <section id="about" class="hidden">
-      <h2>О нас</h2>
-      <p>
-        FloraSweets — это уникальное место, где цветы и сладости создают атмосферу уюта и радости. У нас вы можете не только купить свежие букеты и вкусные десерты, но и приятно провести время с друзьями или семьей в нашем уютном кафе.
-      </p>
-      <p>
-        Мы заботимся о качестве и атмосфере, чтобы каждый визит дарил вам вдохновение и счастье.
-      </p>
-    </section>
   </main>
   <footer>
     &copy; 2024 FloraSweets — Кондитерская & Цветочный салон
@@ -271,46 +271,6 @@
       document.getElementById(sectionId).style.display = 'block'; // Show the selected section
       document.getElementById('mainContent').style.display = 'block'; // Show main content
     }
-
-    function startSweetHourTimer() {
-      const timerEl = document.getElementById('timer');
-
-      function updateTimer() {
-        const now = new Date();
-        const sweetHourStart = new Date(now);
-        sweetHourStart.setHours(15, 0, 0, 0);
-        const sweetHourEnd = new Date(now);
-        sweetHourEnd.setHours(16, 0, 0, 0);
-
-        let diff;
-        let message;
-
-        if (now >= sweetHourStart && now < sweetHourEnd) {
-          diff = sweetHourEnd - now;
-          message = "До конца сладкого часа осталось: ";
-        } else {
-          if (now < sweetHourStart) {
-            diff = sweetHourStart - now;
-            message = "Сладкий час начнется через: ";
-          } else {
-            sweetHourStart.setDate(sweetHourStart.getDate() + 1);
-            diff = sweetHourStart - now;
-            message = "Сладкий час начнется через: ";
-          }
-        }
-
-        let h = Math.floor(diff / 1000 / 60 / 60);
-        let m = Math.floor((diff / 1000 / 60) % 60);
-        let s = Math.floor((diff / 1000) % 60);
-
-        timerEl.textContent = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-        document.getElementById('sweetHour').firstChild.textContent = message;
-      }
-
-      updateTimer();
-      setInterval(updateTimer, 1000);
-    }
-    startSweetHourTimer();
 
     const cart = [];
 
@@ -341,6 +301,9 @@
       document.getElementById('orderMessage').textContent = orderMessage;
       form.reset();
     }
+
+    // Show the about section by default
+    showSection('about');
   </script>
 </body>
 </html>
