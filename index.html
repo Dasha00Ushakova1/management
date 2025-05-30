@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -68,7 +69,6 @@
       padding-bottom: 0.5rem;
       font-weight: 700;
     }
-    /* Карточки товаров */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
@@ -132,7 +132,6 @@
     button.buy-btn:hover {
       background: var(--pink-dark);
     }
-    /* Форма заказа */
     form {
       max-width: 400px;
       display: flex;
@@ -170,7 +169,6 @@
     button[type="submit"]:hover {
       background: var(--pink-dark);
     }
-    /* Интерактивная функция: Таймер "Сладкий час" */
     .sweet-hour {
       background: var(--blue-light);
       color: white;
@@ -316,13 +314,11 @@
   </footer>
 
   <script>
-    // Таймер "Сладкий час" — обратный отсчет до следующего часа с 15% скидкой на десерты
     function startSweetHourTimer() {
       const timerEl = document.getElementById('timer');
 
       function updateTimer() {
         const now = new Date();
-        // Сладкий час — каждый день с 15:00 до 16:00
         const sweetHourStart = new Date(now);
         sweetHourStart.setHours(15, 0, 0, 0);
         const sweetHourEnd = new Date(now);
@@ -332,16 +328,13 @@
         let message;
 
         if (now >= sweetHourStart && now < sweetHourEnd) {
-          // Во время сладкого часа показываем время до конца акции
           diff = sweetHourEnd - now;
           message = "До конца сладкого часа осталось: ";
         } else {
-          // Иначе показываем время до начала следующего сладкого часа
           if (now < sweetHourStart) {
             diff = sweetHourStart - now;
             message = "Сладкий час начнется через: ";
           } else {
-            // После 16:00 — следующий сладкий час завтра
             sweetHourStart.setDate(sweetHourStart.getDate() + 1);
             diff = sweetHourStart - now;
             message = "Сладкий час начнется через: ";
@@ -352,11 +345,7 @@
         let m = Math.floor((diff / 1000 / 60) % 60);
         let s = Math.floor((diff / 1000) % 60);
 
-        h = h.toString().padStart(2, '0');
-        m = m.toString().padStart(2, '0');
-        s = s.toString().padStart(2, '0');
-
-        timerEl.textContent = h + ":" + m + ":" + s;
+        timerEl.textContent = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
         document.getElementById('sweetHour').firstChild.textContent = message;
       }
 
@@ -365,7 +354,6 @@
     }
     startSweetHourTimer();
 
-    // Корзина (простая реализация)
     const cart = [];
 
     function addToCart(name, price) {
@@ -373,7 +361,6 @@
       alert(`Добавлено в корзину: ${name} — ${price} ₽`);
     }
 
-    // Обработка формы заказа
     function handleOrder(event) {
       event.preventDefault();
       const form = event.target;
@@ -387,7 +374,6 @@
         return;
       }
 
-      // Здесь можно добавить отправку данных на сервер или обработку
       const orderMessage = `
         Спасибо, ${name}! Ваш заказ принят.
         Тип заказа: ${orderType}.
