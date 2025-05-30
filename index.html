@@ -386,7 +386,6 @@
       document.getElementById(sectionId).style.display = 'block'; // Показать выбранную секцию
       document.getElementById('mainContent').style.display = 'block'; // Показать основной контент
     }
-     <div id="notification"></div>
 
   <script>
     const cart = [];
@@ -407,6 +406,7 @@
       showNotification(`Добавлено в корзину: ${name} — ${price} ₽`);
       updateCartDisplay();
     }
+    
     showSection('about');
   </script>
 </body>
