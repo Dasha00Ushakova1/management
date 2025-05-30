@@ -323,14 +323,6 @@
   <button onclick="placeOrder()" style="background: var(--green); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Заказать</button>
 </section>
 
-<!-- Пример формы для добавления товара -->
-<section id="addProduct">
-  <h3>Добавить товар</h3>
-  <input type="text" id="productName" placeholder="Название товара" />
-  <input type="text" id="productImage" placeholder="URL изображения" />
-  <button onclick="addToCart()" style="background: var(--blue); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Добавить в корзину</button>
-</section>
-
 <script>
   function addToCart() {
     const productName = document.getElementById('productName').value;
