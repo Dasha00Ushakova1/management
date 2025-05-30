@@ -153,16 +153,32 @@
     </nav>
   </header>
   <main id="mainContent">
-    <section id="about">
-      <h2>Добро пожаловать в FloraSweets!</h2>
-      <p>
-        Мы рады приветствовать вас в нашем кондитерском и цветочном салоне. Здесь вы найдете широкий ассортимент свежих цветов и вкусных десертов, которые сделают ваш день особенным. Наша команда профессионалов с любовью создает букеты и сладости, чтобы каждый момент был наполнен радостью и красотой.
-      </p>
-      <p>
-        Откройте для себя мир ароматов и вкусов, которые мы предлагаем. Мы уверены, что у нас есть что-то для каждого — будь то подарок для любимого человека или сладость для себя.
-      </p>
-    </section>
+   <section id="about">
+  <h2>Добро пожаловать в FloraSweets!</h2>
+  <img src="cute-flower-cake.jpg" alt="Милая композиция из цветов и десертов" style="max-width: 100%; border-radius: 12px; margin-bottom: 1rem;" />
+  <p>
+    Мы рады приветствовать вас в нашем кондитерском и цветочном салоне. Здесь вы найдете широкий ассортимент свежих цветов и вкусных десертов, которые сделают ваш день особенным. Наша команда профессионалов с любовью создает букеты и сладости, чтобы каждый момент был наполнен радостью и красотой.
+  </p>
+  <p>
+    Откройте для себя мир ароматов и вкусов, которые мы предлагаем. Мы уверены, что у нас есть что-то для каждого — будь то подарок для любимого человека или сладость для себя.
+  </p>
 
+  <div id="smileFeature" style="background: var(--pink-light); color: white; padding: 1rem; border-radius: 12px; max-width: 320px; margin-top: 2rem; text-align: center; user-select: none;">
+    <h3>Сколько улыбок мы подарили?</h3>
+    <div id="smileCount" style="font-size: 2.5rem; font-weight: 700; margin: 1rem 0;">0</div>
+    <button onclick="incrementSmile()" style="background: var(--pink-dark); border: none; padding: 0.6rem 1.2rem; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: background-color 0.3s;">
+      Подарить улыбку 
+    </button>
+  </div>
+</section>
+
+<script>
+  let smiles = 0;
+  function incrementSmile() {
+    smiles++;
+    document.getElementById('smileCount').textContent = smiles;
+  }
+</script>
     <section id="flowers" class="hidden">
       <h2>Цветы для души</h2>
       <p>У нас вы можете выбрать свежие букеты и композиции, чтобы порадовать себя или близких.</p>
