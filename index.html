@@ -153,7 +153,7 @@
     </nav>
   </header>
   <main id="mainContent">
-   <section id="about">
+  <section id="about">
   <h2>Добро пожаловать в FloraSweets!</h2>
   <img src="cute-flower-cake.jpg" alt="Милая композиция из цветов и десертов" style="max-width: 100%; border-radius: 12px; margin-bottom: 1rem;" />
   <p>
@@ -171,6 +171,18 @@
     </button>
   </div>
 </section>
+
+<script>
+  // Инициализация счётчика
+  let smiles = localStorage.getItem('smileCount') ? parseInt(localStorage.getItem('smileCount')) : 0;
+  document.getElementById('smileCount').textContent = smiles;
+
+  function incrementSmile() {
+    smiles++;
+    document.getElementById('smileCount').textContent = smiles;
+    localStorage.setItem('smileCount', smiles); // Сохраняем значение в localStorage
+  }
+</script>
 
 <script>
   let smiles = 0;
