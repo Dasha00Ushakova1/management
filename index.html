@@ -14,6 +14,9 @@
       --blue-light: #7986a6;
       --blue-dark: #4e5f79;
       --light-background: #f9f9f9; /* Новый цвет фона для формы заказа */
+      --notification-blue-bg: #4e79d8;/* ... остальные стили ... */
+    --notification-blue-color: #ffffff; /* ... остальные стили ... */
+      
     }
     body {
       margin: 0;
@@ -390,6 +393,7 @@
       showOrderNotification();
       form.reset();
     }
+    
 
     function showOrderNotification() {
       const notification = document.createElement('div');
@@ -409,6 +413,28 @@
         notification.remove();
       }, 3000); // Удалить уведомление через 3 секунды
     }
+    function showOrderNotification() {
+    const notification = document.createElement('div');
+    notification.textContent = 'Ваш заказ принят! Мы свяжемся с вами.';
+    notification.style.background = 'var(--notification-blue-bg)';
+    notification.style.color = 'var(--notification-blue-color)';
+    notification.style.padding = '1rem';
+    notification.style.borderRadius = '8px';
+    notification.style.position = 'fixed';
+    notification.style.top = '20px';
+    notification.style.right = '20px';
+    notification.style.zIndex = '100';
+    notification.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
+    notification.style.transition = 'opacity 0.5s ease';
+    notification.style.opacity = '1';
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+      notification.style.opacity = '0';
+      setTimeout(() => notification.remove(), 500);
+    }, 3000);
+  }
 
     function showSection(sectionId) {
       const sections = document.querySelectorAll('main > section');
