@@ -423,31 +423,6 @@
         }, 3000);
     }
 
-    function handleOrder(event) {
-        event.preventDefault();
-        const form = event.target;
-        const name = form.name.value.trim();
-        const phone = form.phone.value.trim();
-        const orderType = form.orderType.value;
-        const details = form.details.value.trim();
-
-        if (!name || !phone || !orderType) {
-            alert('Пожалуйста, заполните все обязательные поля.');
-            return;
-        }
-
-        const orderMessage = `
-            Спасибо, ${name}! Ваш заказ принят.
-            Тип заказа: ${orderType}.
-            Дополнительно: ${details || 'нет'}.
-            Мы свяжемся с вами по телефону: ${phone}.
-        `;
-        document.getElementById('orderMessage').textContent = orderMessage;
-
-        // Показать уведомление о принятии заказа
-        showNotification('Ваш заказ принят! Мы свяжемся с вами.');
-        form.reset();
-    }
 
     function showSection(sectionId) {
         const sections = document.querySelectorAll('main > section');
