@@ -190,6 +190,17 @@
         </button>
       </div>
     </section>
+    <script>
+  // Инициализация счётчика
+  let smiles = localStorage.getItem('smileCount') ? parseInt(localStorage.getItem('smileCount')) : 0;
+  document.getElementById('smileCount').textContent = smiles;
+
+  function incrementSmile() {
+    smiles++;
+    document.getElementById('smileCount').textContent = smiles;
+    localStorage.setItem('smileCount', smiles); // Сохраняем значение в localStorage
+  }
+</script>
 
     <section id="flowers" class="hidden">
       <h2>Цветы для души</h2>
@@ -291,7 +302,7 @@
 
     <section id="cart" class="hidden">
       <h2>Корзина</h2>
-      <img src="cart-icon.png" alt="Корзина" style="width: 50px; height: 50px; margin-bottom: 1rem;">
+      <img src="images (2)-Photoroom (1).png" alt="Корзина" style="width: 50px; height: 50px; margin-bottom: 1rem;">
       <ul id="cartItems" style="list-style: none; padding: 0;"></ul>
       <button onclick="clearCart()" style="background: var(--pink-dark); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Очистить корзину</button>
     </section>
