@@ -189,9 +189,7 @@
         <button onclick="incrementSmile()" style="background: var(--pink-dark); border: none; padding: 0.6rem 1.2rem; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: background-color 0.3s;">
           Подарить улыбку 
         </button>
-      </div>
-    </section>
-    <script>
+        <script>
   // Инициализация счётчика
   let smiles = localStorage.getItem('smileCount') ? parseInt(localStorage.getItem('smileCount')) : 0;
   document.getElementById('smileCount').textContent = smiles;
@@ -202,6 +200,9 @@
     localStorage.setItem('smileCount', smiles); // Сохраняем значение в localStorage
   }
 </script>
+      </div>
+    </section>
+  
     <section id="flowers" class="hidden">
       <h2>Цветы — это улыбки природы, которые радуют наши сердца</h2>
       <p>У нас вы можете выбрать свежие букеты и композиции, чтобы порадовать себя или близких.</p>
