@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -44,16 +43,18 @@
       text-decoration: none;
       margin-left: 1.5rem;
       font-weight: 600;
-      transition: color 0.3s;
+      transition: color 0.3s, transform 0.3s;
     }
     nav a:hover {
       color: var(--pink-light);
+      transform: scale(1.1);
     }
     main {
       flex-grow: 1;
       max-width: 1200px;
       margin: 2rem auto;
       padding: 0 1rem;
+      display: none; /* Hide main content initially */
     }
     section {
       background: white;
@@ -132,54 +133,6 @@
     button.buy-btn:hover {
       background: var(--pink-dark);
     }
-    form {
-      max-width: 400px;
-      display: flex;
-      flex-direction: column;
-    }
-    label {
-      margin-bottom: 0.3rem;
-      font-weight: 600;
-      color: var(--blue-dark);
-    }
-    input, select, textarea {
-      padding: 0.6rem;
-      margin-bottom: 1rem;
-      border: 1px solid var(--blue-light);
-      border-radius: 6px;
-      font-size: 1rem;
-      font-family: inherit;
-      resize: vertical;
-    }
-    textarea {
-      min-height: 80px;
-    }
-    button[type="submit"] {
-      background: var(--pink-light);
-      border: none;
-      padding: 0.8rem 1.2rem;
-      border-radius: 6px;
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: background-color 0.3s ease;
-    }
-    button[type="submit"]:hover {
-      background: var(--pink-dark);
-    }
-    .sweet-hour {
-      background: var(--blue-light);
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.3rem;
-      margin-bottom: 2rem;
-      user-select: none;
-    }
     footer {
       background: var(--blue-dark);
       color: white;
@@ -193,18 +146,14 @@
   <header>
     <h1>FloraSweets</h1>
     <nav>
-      <a href="#flowers">Цветы</a>
-      <a href="#desserts">Десерты</a>
-      <a href="#order">Заказать</a>
-      <a href="#about">О нас</a>
+      <a href="#" onclick="showSection('flowers')">Цветы</a>
+      <a href="#" onclick="showSection('desserts')">Десерты</a>
+      <a href="#" onclick="showSection('order')">Заказать</a>
+      <a href="#" onclick="showSection('about')">О нас</a>
     </nav>
   </header>
-  <main>
-    <div class="sweet-hour" id="sweetHour">
-      Сладкий час! Скидка 15% на все десерты через: <span id="timer">00:00:00</span>
-    </div>
-
-    <section id="flowers">
+  <main id="mainContent">
+    <section id="flowers" class="hidden">
       <h2>Цветы для души</h2>
       <p>У нас вы можете выбрать свежие букеты и композиции, чтобы порадовать себя или близких.</p>
       <div class="grid">
@@ -238,7 +187,7 @@
       </div>
     </section>
 
-    <section id="desserts">
+    <section id="desserts" class="hidden">
       <h2>Вкусные десерты</h2>
       <p>Наши кондитеры приготовят для вас изысканные сладости из натуральных ингредиентов.</p>
       <div class="grid">
@@ -272,7 +221,7 @@
       </div>
     </section>
 
-    <section id="order">
+    <section id="order" class="hidden">
       <h2>Заказать и провести время</h2>
       <p>Оставьте заявку на доставку цветов и десертов или забронируйте уютное место у нас.</p>
       <form id="orderForm" onsubmit="handleOrder(event)">
@@ -299,7 +248,7 @@
       <p id="orderMessage" style="color: var(--pink-dark); font-weight: 700; margin-top: 1rem;"></p>
     </section>
 
-    <section id="about">
+    <section id="about" class="hidden">
       <h2>О нас</h2>
       <p>
         FloraSweets — это уникальное место, где цветы и сладости создают атмосферу уюта и радости. У нас вы можете не только купить свежие букеты и вкусные десерты, но и приятно провести время с друзьями или семьей в нашем уютном кафе.
@@ -314,6 +263,15 @@
   </footer>
 
   <script>
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('main > section');
+      sections.forEach(section => {
+        section.style.display = 'none'; // Hide all sections
+      });
+      document.getElementById(sectionId).style.display = 'block'; // Show the selected section
+      document.getElementById('mainContent').style.display = 'block'; // Show main content
+    }
+
     function startSweetHourTimer() {
       const timerEl = document.getElementById('timer');
 
