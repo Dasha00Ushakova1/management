@@ -159,6 +159,26 @@
         height: 120px; /* Уменьшение высоты изображения для мобильных устройств */
       }
     }
+    #notification {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: var(--pink-light);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    font-weight: 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 1000;
+  }
+  #notification.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
   </style>
 </head>
 <body>
@@ -366,8 +386,27 @@
       document.getElementById(sectionId).style.display = 'block'; // Показать выбранную секцию
       document.getElementById('mainContent').style.display = 'block'; // Показать основной контент
     }
+     <div id="notification"></div>
 
-    // Показать секцию "О нас" по умолчанию
+  <script>
+    const cart = [];
+    const notification = document.getElementById('notification');
+    let notificationTimeout;
+
+    function showNotification(message) {
+      notification.textContent = message;
+      notification.classList.add('show');
+      clearTimeout(notificationTimeout);
+      notificationTimeout = setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    function addToCart(name, price) {
+      cart.push({name, price});
+      showNotification(`Добавлено в корзину: ${name} — ${price} ₽`);
+      updateCartDisplay();
+    }
     showSection('about');
   </script>
 </body>
