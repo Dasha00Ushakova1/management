@@ -159,26 +159,6 @@
         height: 120px; /* Уменьшение высоты изображения для мобильных устройств */
       }
     }
-    #notification {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: var(--pink-light);
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      font-weight: 700;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-      z-index: 1000;
-    }
-    #notification.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
   </style>
 </head>
 <body>
@@ -189,15 +169,13 @@
       <a href="#" onclick="showSection('desserts')">Десерты</a>
       <a href="#" onclick="showSection('order')">Заказать</a>
       <a href="#" onclick="showSection('about')">О нас</a>
-      <a href="#" onclick="showSection('cart')">
-        <img src="cart-icon.png" alt="Корзина" style="width: 30px; height: 30px; vertical-align: middle;">
-      </a>
+      <a href="#" onclick="showSection('cart')">Корзина</a> <!-- Кнопка для корзины -->
     </nav>
   </header>
   <main id="mainContent">
     <section id="about">
       <h2>Добро пожаловать в FloraSweets!</h2>
-      <img src="main1.jpeg" alt="Милая композиция из цветов и десертов" style="max-width: 80%; border-radius: 12px; margin-bottom: 1rem;" />
+      <img src="main1.jpeg" alt="Милая композиция из цветов и десертов" style="max-width: 80%; border-radius: 12px; margin-bottom: 1rem;" /> <!-- Уменьшена картинка -->
       <p>
         Мы рады приветствовать вас в нашем кондитерском и цветочном салоне. Здесь вы найдете широкий ассортимент свежих цветов и вкусных десертов, которые сделают ваш день особенным. Наша команда профессионалов с любовью создает букеты и сладости, чтобы каждый момент был наполнен радостью и красотой.
       </p>
@@ -214,7 +192,7 @@
     </section>
 
     <section id="flowers" class="hidden">
-      <h2>Пусть цветы наполняют ваш день светом и радостью.</h2>
+      <h2>Цветы для души</h2>
       <p>У нас вы можете выбрать свежие букеты и композиции, чтобы порадовать себя или близких.</p>
       <div class="grid">
         <div class="card" tabindex="0">
@@ -248,7 +226,7 @@
     </section>
 
     <section id="desserts" class="hidden">
-      <h2>Сладость — это маленькое счастье в каждом кусочке.</h2>
+      <h2>Вкусные десерты</h2>
       <p>Наши кондитеры приготовят для вас изысканные сладости из натуральных ингредиентов.</p>
       <div class="grid">
         <div class="card" tabindex="0">
@@ -284,7 +262,7 @@
     <section id="order" class="hidden">
       <h2>Заказать и провести время</h2>
       <p>Оставьте заявку на доставку цветов и десертов или забронируйте уютное место у нас.</p>
-      <form id="orderForm" onsubmit="handleOrder(event)" style="background: var(--light-background); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+      <form id="orderForm" onsubmit="handleOrder(event)" style="background: var(--light-background); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"> <!-- Изменён цвет фона -->
         
         <label for="name">Ваше имя</label>
         <input type="text" id="name" name="name" required aria-required="true" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid var(--blue-light); border-radius: 6px;">
@@ -324,21 +302,10 @@
 
   <script>
     const cart = [];
-    const notification = document.getElementById('notification');
-    let notificationTimeout;
-
-    function showNotification(message) {
-      notification.textContent = message;
-      notification.classList.add('show');
-      clearTimeout(notificationTimeout);
-      notificationTimeout = setTimeout(() => {
-        notification.classList.remove('show');
-      }, 3000);
-    }
 
     function addToCart(name, price) {
       cart.push({name, price});
-      showNotification(`Добавлено в корзину: ${name} — ${price} ₽`);
+      alert(`Добавлено в корзину: ${name} — ${price} ₽`);
       updateCartDisplay();
     }
 
@@ -355,7 +322,7 @@
     function clearCart() {
       cart.length = 0; // Очистить корзину
       updateCartDisplay();
-      showNotification('Корзина очищена.');
+      alert('Корзина очищена.');
     }
 
     function handleOrder(event) {
@@ -380,30 +347,18 @@
       document.getElementById('orderMessage').textContent = orderMessage;
       form.reset();
     }
-<script>
-  function showSection(sectionId) {
-    const sections = document.querySelectorAll('main > section');
-    sections.forEach(section => {
-      section.classList.add('hidden');
-    });
-    const target = document.getElementById(sectionId);
-    if (target) {
-      target.classList.remove('hidden');
+
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('main > section');
+      sections.forEach(section => {
+        section.style.display = 'none'; // Скрыть все секции
+      });
+      document.getElementById(sectionId).style.display = 'block'; // Показать выбранную секцию
+      document.getElementById('mainContent').style.display = 'block'; // Показать основной контент
     }
-  }
 
-  document.addEventListener('DOMContentLoaded', () => {
+    // Показать секцию "О нас" по умолчанию
     showSection('about');
-    // Инициализация счетчика улыбок
-    let smiles = parseInt(localStorage.getItem('smiles')) || 0;
-    document.getElementById('smileCount').textContent = smiles;
-  });
-
-  let smiles = parseInt(localStorage.getItem('smiles')) || 0;
-
-  function incrementSmile() {
-    smiles++;
-    document.getElementById('smileCount').textContent = smiles;
-    localStorage.setItem('smiles', smiles);
-  }
-</script>
+  </script>
+</body>
+</html>
