@@ -190,8 +190,16 @@
         </button>
       </div>
     </section>
-    <script> let smiles = 0; function incrementSmile() { smiles++; document.getElementById('smileCount').textContent = smiles; } </script>
-<section id="flowers" class="hidden">
+    <script>
+  let smiles = parseInt(localStorage.getItem('smiles')) || 0;
+  document.getElementById('smileCount').textContent = smiles;
+
+  function incrementSmile() {
+    smiles++;
+    document.getElementById('smileCount').textContent = smiles;
+    localStorage.setItem('smiles', smiles);
+  }
+</script>
 
     <section id="flowers" class="hidden">
       <h2>Цветы для души</h2>
