@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="logo1-round.png" sizes="32x32" type="image/x-icon">
-  <link href="logo1-round.png" rel="stylesheet">
+  <link rel="icon" href="logo1.png" sizes="32x32" type="image/x-icon">
+  <link href="logo1.png" rel="stylesheet">
   <title>FloraSweets — Кондитерская & Цветочный салон</title>
   <style>
     :root {
@@ -157,21 +157,6 @@
       }
       .card img {
         height: 120px; /* Уменьшение высоты изображения для мобильных устройств */
-      .notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--pink-light);
-      color: white;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      z-index: 1000;
-    }
-    .notification.show {
-      opacity: 1;  
       }
     }
   </style>
@@ -184,7 +169,7 @@
       <a href="#" onclick="showSection('desserts')">Десерты</a>
       <a href="#" onclick="showSection('order')">Заказать</a>
       <a href="#" onclick="showSection('about')">О нас</a>
-      <a href="#" onclick="showSection('cart')">🛒</a> <!-- Кнопка для корзины -->
+      <a href="#" onclick="showSection('cart')">Корзина</a> <!-- Кнопка для корзины -->
     </nav>
   </header>
   <main id="mainContent">
@@ -316,88 +301,15 @@
     </section>
 
     <section id="cart" class="hidden">
-  <h2>Забронируйте букет или десерт прямо сейчас</h2>
-  <img src="images (2)-Photoroom (1).png" alt="Корзина" style="width: 50px; height: 50px; margin-bottom: 1rem;">
-  <ul id="cartItems" style="list-style: none; padding: 0;"></ul>
-  <button onclick="clearCart()" style="background: var(--pink-dark); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Очистить корзину</button>
-  <button onclick="placeOrder()" style="background: var(--green); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Заказать</button>
-</section>
-
-<!-- Пример формы для добавления товара -->
-<section id="addProduct">
-  <h3>Добавить товар</h3>
-  <input type="text" id="productName" placeholder="Название товара" />
-  <input type="text" id="productImage" placeholder="URL изображения" />
-  <button onclick="addToCart()" style="background: var(--blue); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Добавить в корзину</button>
-</section>
-
-<script>
-  function addToCart() {
-    const productName = document.getElementById('productName').value;
-    const productImage = document.getElementById('productImage').value;
-    const cartItems = document.getElementById('cartItems');
-
-    if (productName && productImage) {
-      const li = document.createElement('li');
-      li.style.marginBottom = '1rem';
-      li.innerHTML = `<img src="${productImage}" alt="${productName}" style="width: 30px; height: 30px; margin-right: 0.5rem;"> ${productName}`;
-      cartItems.appendChild(li);
-
-      // Очистить поля ввода
-      document.getElementById('productName').value = '';
-      document.getElementById('productImage').value = '';
-    } else {
-      alert('Пожалуйста, заполните все поля.');
-    }
-  }
-
-  function clearCart() {
-    document.getElementById('cartItems').innerHTML = '';
-  }
-
-  function placeOrder() {
-    const cartItems = document.getElementById('cartItems').children;
-    if (cartItems.length > 0) {
-      alert('Ваш заказ оформлен!');
-      clearCart();
-    } else {
-      alert('Корзина пуста. Добавьте товары перед оформлением заказа.');
-    }
-  }
-</script>
+      <h2>🛒</h2>
+      <img src="images (2)-Photoroom (1).png" alt="Корзина" style="width: 50px; height: 50px; margin-bottom: 1rem;">
+      <ul id="cartItems" style="list-style: none; padding: 0;"></ul>
+      <button onclick="clearCart()" style="background: var(--pink-dark); color: white; border: none; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer;">Очистить корзину</button>
+    </section>
   </main>
   <footer>
     &copy; 2025 FloraSweets — Кондитерская & Цветочный салон — Ушакова & Тимощенкова
   </footer>
-   <div id="notification" class="notification"></div>
-
-  <script>
-    const cart = [];
-
-    function addToCart(name, price) {
-      cart.push({name, price});
-      showNotification(`Добавлено в корзину: ${name} — ${price} ₽`);
-      updateCartDisplay();
-    }
-
-    function showNotification(message) {
-      const notification = document.getElementById('notification');
-      notification.textContent = message;
-      notification.classList.add('show');
-      setTimeout(() => {
-        notification.classList.remove('show');
-      }, 3000); // Уведомление исчезает через 3 секунды
-    }
-
-    function updateCartDisplay() {
-      const cartItems = document.getElementById('cartItems');
-      cartItems.innerHTML = '';
-      cart.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} — ${item.price} ₽`;
-        cartItems.appendChild(li);
-      });
-    }
 
   <script>
     const cart = [];
@@ -455,74 +367,7 @@
       document.getElementById(sectionId).style.display = 'block'; // Показать выбранную секцию
       document.getElementById('mainContent').style.display = 'block'; // Показать основной контент
     }
-    <div id="notification" class="notification"></div>
 
-  <script>
-    const cart = [];
-
-    function addToCart(name, price) {
-      cart.push({name, price});
-      showNotification(`Добавлено в корзину: ${name} — ${price} ₽`);
-      updateCartDisplay();
-    }
-
-    function showNotification(message) {
-      const notification = document.getElementById('notification');
-      notification.textContent = message;
-      notification.classList.add('show');
-      setTimeout(() => {
-        notification.classList.remove('show');
-      }, 3000); // Уведомление исчезает через 3 секунды
-    }
-
-    function updateCartDisplay() {
-      const cartItems = document.getElementById('cartItems');
-      cartItems.innerHTML = '';
-      cart.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} — ${item.price} ₽`;
-        cartItems.appendChild(li);
-      });
-    }
-
-    function clearCart() {
-      cart.length = 0;
-      updateCartDisplay();
-      showNotification('Корзина очищена.');
-    }
-
-    function handleOrder(event) {
-      event.preventDefault();
-      const form = event.target;
-      const name = form.name.value.trim();
-      const phone = form.phone.value.trim();
-      const orderType = form.orderType.value;
-      const details = form.details.value.trim();
-
-      if (!name || !phone || !orderType) {
-        showNotification('Пожалуйста, заполните все обязательные поля.');
-        return;
-      }
-
-      const orderMessage = `
-        Спасибо, ${name}! Ваш заказ принят.
-        Тип заказа: ${orderType}.
-        Дополнительно: ${details || 'нет'}.
-        Мы свяжемся с вами по телефону: ${phone}.
-      `;
-      document.getElementById('orderMessage').textContent = orderMessage;
-      form.reset();
-      showNotification('Ваш заказ принят!');
-    }
-
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('main > section');
-      sections.forEach(section => {
-        section.style.display = 'none';
-      });
-      document.getElementById(sectionId).style.display = 'block';
-      document.getElementById('mainContent').style.display = 'block';
-    }
     // Показать секцию "О нас" по умолчанию
     showSection('about');
   </script>
