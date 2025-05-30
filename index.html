@@ -183,7 +183,25 @@
         Откройте для себя мир ароматов и вкусов, которые мы предлагаем. Мы уверены, что у нас есть что-то для каждого — будь то подарок для любимого человека или сладость для себя.
       </p>
     </section>
+    <div id="smileFeature" style="background: var(--pink-light); color: white; padding: 1rem; border-radius: 12px; max-width: 320px; margin-top: 2rem; text-align: center; user-select: none;">
+        <h3>Сколько улыбок мы подарили?</h3>
+        <div id="smileCount" style="font-size: 2.5rem; font-weight: 700; margin: 1rem 0;">0</div>
+        <button onclick="incrementSmile()" style="background: var(--pink-dark); border: none; padding: 0.6rem 1.2rem; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; transition: background-color 0.3s;">
+          Подарить улыбку 
+        </button>
+      </div>
+    </section>
+    <script>
+  // Инициализация счётчика
+  let smiles = localStorage.getItem('smileCount') ? parseInt(localStorage.getItem('smileCount')) : 0;
+  document.getElementById('smileCount').textContent = smiles;
 
+  function incrementSmile() {
+    smiles++;
+    document.getElementById('smileCount').textContent = smiles;
+    localStorage.setItem('smileCount', smiles); // Сохраняем значение в localStorage
+  }
+</script>
     <section id="flowers" class="hidden">
       <h2>Цветы — это улыбки природы, которые радуют наши сердца</h2>
       <p>У нас вы можете выбрать свежие букеты и композиции, чтобы порадовать себя или близких.</p>
